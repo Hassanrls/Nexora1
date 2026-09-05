@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,10 +18,765 @@ body {
     min-height: 100vh;
     background:
         radial-gradient(circle at 20% 20%, #6d28d955, transparent 35%),
-        radial-gradient(circle at 80% 30%, #2563eb44, transparent 35%),
+        radial-gradient(circle at 80% 30%, #2563eb66, transparent 35%),
         radial-gradient(circle at 50% 100%, #9333ea44, transparent 40%),
-        linear-gradient(135deg, #03020b, #0b0820, #06162d);
+        radial-gradient(circle at 90% 80%, #0ea5e944, transparent 30%),
+        linear-gradient(135deg, #03020b, #090722, #061b38, #08051c);
 }
+
+/* ==========================
+   NEXORA SPACE BACKGROUND
+========================== */
+
+#spaceBackground {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(168, 85, 247, .14), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, .16), transparent 30%),
+        radial-gradient(circle at 50% 80%, rgba(236, 72, 153, .09), transparent 35%),
+        radial-gradient(circle at 85% 75%, rgba(14, 165, 233, .10), transparent 30%);
+    animation: spacePulse 7s ease-in-out infinite;
+}
+
+#spaceBackground::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    background:
+        radial-gradient(circle at 25% 35%, rgba(147, 51, 234, .25), transparent 20%),
+        radial-gradient(circle at 70% 25%, rgba(37, 99, 235, .28), transparent 22%),
+        radial-gradient(circle at 55% 70%, rgba(236, 72, 153, .18), transparent 20%),
+        radial-gradient(circle at 80% 80%, rgba(239, 68, 68, .10), transparent 18%),
+        radial-gradient(circle at 15% 80%, rgba(14, 165, 233, .17), transparent 20%);
+    filter: blur(45px);
+    animation: nebulaMove 14s ease-in-out infinite alternate;
+}
+
+/* ==========================
+   BRIGHT STAR FIELD
+========================== */
+
+#spaceBackground::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,1) 1.5px, transparent 2.5px),
+        radial-gradient(circle, rgba(216,180,254,.95) 1.5px, transparent 2.5px),
+        radial-gradient(circle, rgba(147,197,253,.95) 1.5px, transparent 2.5px),
+        radial-gradient(circle, rgba(125,211,252,.8) 1px, transparent 2px);
+
+    background-size:
+        170px 170px,
+        230px 230px,
+        310px 310px,
+        390px 390px;
+
+    background-position:
+        20px 40px,
+        100px 20px,
+        50px 130px,
+        170px 90px;
+
+    opacity: .82;
+
+    filter:
+        drop-shadow(0 0 4px white)
+        drop-shadow(0 0 10px #e9d5ff)
+        drop-shadow(0 0 18px #93c5fd)
+        drop-shadow(0 0 28px #60a5fa);
+
+    animation: starDrift 30s linear infinite;
+}
+
+/* CRAZY STAR FLASH */
+
+#spaceBackground.game-selected::after {
+    animation:
+        starDrift 30s linear infinite,
+        crazyStars .8s cubic-bezier(.15,.8,.25,1) forwards;
+}
+
+/* ==========================
+   REALISTIC SPACE PLANETS
+========================== */
+
+.space-planet {
+    position: absolute;
+    border-radius: 50%;
+    opacity: .88;
+    filter: blur(.05px);
+    will-change: transform;
+    overflow: hidden;
+    isolation: isolate;
+
+    background-blend-mode:
+        screen,
+        normal,
+        normal;
+
+    box-shadow:
+        inset -18px -18px 30px rgba(0,0,0,.55),
+        inset 8px 8px 18px rgba(255,255,255,.18);
+}
+
+/* Soft atmospheric glow */
+
+.space-planet::before {
+    content: "";
+    position: absolute;
+    inset: -4%;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            rgba(255,255,255,.55),
+            transparent 12%
+        ),
+        radial-gradient(
+            circle at 70% 75%,
+            rgba(0,0,0,.65),
+            transparent 55%
+        );
+
+    filter: blur(1px);
+
+    opacity: .9;
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+/* Realistic atmospheric rim */
+
+.space-planet::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+
+    border: 2px solid rgba(255,255,255,.22);
+
+    box-shadow:
+        inset 8px 5px 12px rgba(255,255,255,.18),
+        inset -15px -10px 25px rgba(0,0,0,.65),
+        0 0 15px rgba(236,72,153,.18),
+        0 0 25px rgba(59,130,246,.18);
+
+    transform: none;
+
+    z-index: 3;
+    pointer-events: none;
+}
+
+.planet-one {
+    width: 115px;
+    height: 115px;
+    left: 7%;
+    top: 18%;
+
+    background:
+        radial-gradient(
+            circle at 27% 22%,
+            rgba(255,255,255,.9) 0%,
+            rgba(249,168,212,.7) 7%,
+            transparent 16%
+        ),
+        radial-gradient(
+            ellipse at 42% 38%,
+            rgba(219,39,119,.55) 0%,
+            transparent 28%
+        ),
+        radial-gradient(
+            ellipse at 62% 65%,
+            rgba(76,29,149,.8) 0%,
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            transparent 45%,
+            rgba(0,0,0,.45) 100%
+        ),
+        linear-gradient(
+            135deg,
+            #4c1d95,
+            #2563eb,
+            #06b6d4,
+            #db2777,
+            #ef4444
+        );
+
+    box-shadow:
+        inset -20px -20px 30px rgba(0,0,0,.58),
+        inset 10px 8px 18px rgba(255,255,255,.18),
+        0 0 35px #9333ea88,
+        0 0 70px #2563eb66,
+        0 0 100px #06b6d444;
+
+    animation: planetFloatOne 12s ease-in-out infinite;
+}
+
+.planet-two {
+    width: 75px;
+    height: 75px;
+    right: 12%;
+    top: 20%;
+
+    background:
+        radial-gradient(
+            circle at 27% 23%,
+            rgba(255,255,255,.95) 0%,
+            #dbeafe 7%,
+            transparent 16%
+        ),
+        radial-gradient(
+            ellipse at 65% 35%,
+            rgba(6,182,212,.55),
+            transparent 32%
+        ),
+        radial-gradient(
+            ellipse at 35% 70%,
+            rgba(124,58,237,.7),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            transparent 45%,
+            rgba(0,0,0,.48) 100%
+        ),
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #06b6d4,
+            #7c3aed,
+            #ec4899
+        );
+
+    box-shadow:
+        inset -14px -14px 22px rgba(0,0,0,.58),
+        inset 7px 6px 13px rgba(255,255,255,.2),
+        0 0 30px #3b82f688,
+        0 0 60px #06b6d455,
+        0 0 80px #ec489944;
+
+    animation: planetFloatTwo 9s ease-in-out infinite;
+}
+
+.planet-three {
+    width: 145px;
+    height: 145px;
+    right: 3%;
+    bottom: 5%;
+
+    background:
+        radial-gradient(
+            circle at 26% 21%,
+            rgba(255,255,255,.9) 0%,
+            #fbcfe8 7%,
+            transparent 16%
+        ),
+        radial-gradient(
+            ellipse at 68% 66%,
+            rgba(239,68,68,.7),
+            transparent 28%
+        ),
+        radial-gradient(
+            ellipse at 40% 40%,
+            rgba(37,99,235,.55),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            transparent 42%,
+            rgba(0,0,0,.5) 100%
+        ),
+        linear-gradient(
+            145deg,
+            #581c87,
+            #2563eb,
+            #06b6d4,
+            #db2777,
+            #ef4444
+        );
+
+    box-shadow:
+        inset -25px -25px 40px rgba(0,0,0,.62),
+        inset 12px 10px 22px rgba(255,255,255,.17),
+        0 0 45px #db277788,
+        0 0 90px #7c3aed55,
+        0 0 120px #2563eb44;
+
+    animation: planetFloatThree 15s ease-in-out infinite;
+}
+
+.planet-four {
+    width: 55px;
+    height: 55px;
+    left: 30%;
+    bottom: 12%;
+
+    background:
+        radial-gradient(
+            circle at 27% 22%,
+            rgba(255,255,255,.95) 0%,
+            #e9d5ff 8%,
+            transparent 18%
+        ),
+        radial-gradient(
+            ellipse at 65% 65%,
+            rgba(147,51,234,.7),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            transparent 43%,
+            rgba(0,0,0,.48) 100%
+        ),
+        linear-gradient(
+            135deg,
+            #3b82f6,
+            #06b6d4,
+            #9333ea,
+            #ec4899
+        );
+
+    box-shadow:
+        inset -11px -11px 18px rgba(0,0,0,.58),
+        inset 6px 5px 10px rgba(255,255,255,.2),
+        0 0 25px #a855f777,
+        0 0 45px #3b82f655;
+
+    animation: planetFloatFour 8s ease-in-out infinite;
+}
+
+.planet-five {
+    width: 42px;
+    height: 42px;
+    left: 57%;
+    top: 11%;
+
+    background:
+        radial-gradient(
+            circle at 27% 22%,
+            rgba(255,255,255,.95) 0%,
+            #fce7f3 8%,
+            transparent 18%
+        ),
+        radial-gradient(
+            ellipse at 62% 65%,
+            rgba(124,58,237,.65),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            transparent 43%,
+            rgba(0,0,0,.5) 100%
+        ),
+        linear-gradient(
+            135deg,
+            #ec4899,
+            #7c3aed,
+            #2563eb,
+            #06b6d4
+        );
+
+    box-shadow:
+        inset -9px -9px 15px rgba(0,0,0,.6),
+        inset 5px 4px 8px rgba(255,255,255,.22),
+        0 0 25px #ec489988,
+        0 0 45px #2563eb55;
+
+    animation: planetFloatFive 10s ease-in-out infinite;
+}
+
+/* ==========================
+   SHOOTING STARS
+========================== */
+
+.shooting-star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #ffffff;
+
+    box-shadow:
+        0 0 6px #ffffff,
+        0 0 12px #dbeafe,
+        0 0 22px #93c5fd,
+        0 0 38px #60a5fa,
+        0 0 55px #c084fc;
+
+    opacity: 0;
+    transform: rotate(-35deg);
+}
+
+.shooting-star::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 150px;
+    height: 3px;
+    transform-origin: right center;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(147,197,253,.18),
+        rgba(192,132,252,.45),
+        rgba(255,255,255,.95)
+    );
+
+    filter:
+        blur(.5px)
+        drop-shadow(0 0 5px #60a5fa)
+        drop-shadow(0 0 10px #c084fc);
+}
+
+.star-one {
+    top: 12%;
+    left: 85%;
+    animation: shootingStar 5s linear infinite;
+}
+
+.star-two {
+    top: 35%;
+    left: 65%;
+    animation: shootingStar 7s linear 2s infinite;
+}
+
+.star-three {
+    top: 8%;
+    left: 48%;
+    animation: shootingStar 6s linear 4s infinite;
+}
+
+.star-four {
+    top: 55%;
+    left: 92%;
+    animation: shootingStar 8s linear 1s infinite;
+}
+
+.star-five {
+    top: 70%;
+    left: 45%;
+    animation: shootingStar 7s linear 5s infinite;
+}
+
+.star-six {
+    top: 25%;
+    left: 30%;
+    animation: shootingStar 9s linear 3s infinite;
+}
+
+/* ==========================
+   GAME SELECTION FLASH
+========================== */
+
+#spaceBackground.game-selected {
+    animation:
+        crazySpaceFlash .8s cubic-bezier(.15,.8,.25,1) forwards,
+        spacePulse 7s ease-in-out .8s infinite;
+}
+
+#spaceBackground.game-selected::before {
+    animation: crazyNebulaFlash .8s ease-out forwards;
+}
+
+@keyframes crazyStars {
+
+    0% {
+        opacity: .82;
+
+        filter:
+            brightness(1)
+            drop-shadow(0 0 4px white)
+            drop-shadow(0 0 10px #e9d5ff)
+            drop-shadow(0 0 18px #93c5fd);
+    }
+
+    15% {
+        opacity: 1;
+
+        filter:
+            brightness(2.5)
+            drop-shadow(0 0 8px white)
+            drop-shadow(0 0 20px #f5d0fe)
+            drop-shadow(0 0 40px #60a5fa)
+            drop-shadow(0 0 60px #e879f9);
+    }
+
+    35% {
+        opacity: 1;
+
+        filter:
+            brightness(5)
+            drop-shadow(0 0 12px white)
+            drop-shadow(0 0 30px #ffffff)
+            drop-shadow(0 0 55px #93c5fd)
+            drop-shadow(0 0 85px #c084fc)
+            drop-shadow(0 0 110px #ec4899);
+    }
+
+    50% {
+        opacity: 1;
+
+        filter:
+            brightness(7)
+            drop-shadow(0 0 18px white)
+            drop-shadow(0 0 40px #ffffff)
+            drop-shadow(0 0 75px #7dd3fc)
+            drop-shadow(0 0 110px #a855f7)
+            drop-shadow(0 0 150px #ec4899);
+    }
+
+    70% {
+        opacity: 1;
+
+        filter:
+            brightness(3)
+            drop-shadow(0 0 12px white)
+            drop-shadow(0 0 25px #dbeafe)
+            drop-shadow(0 0 50px #60a5fa)
+            drop-shadow(0 0 70px #c084fc);
+    }
+
+    100% {
+        opacity: .82;
+
+        filter:
+            brightness(1)
+            drop-shadow(0 0 4px white)
+            drop-shadow(0 0 10px #e9d5ff)
+            drop-shadow(0 0 18px #93c5fd)
+            drop-shadow(0 0 28px #60a5fa);
+    }
+}
+
+@keyframes spacePulse {
+
+    0%, 100% {
+        filter: brightness(.85) saturate(1);
+        opacity: .82;
+    }
+
+    50% {
+        filter: brightness(1.12) saturate(1.25);
+        opacity: 1;
+    }
+}
+
+@keyframes nebulaMove {
+
+    0% {
+        transform: translate(-4%, -2%) scale(1);
+    }
+
+    50% {
+        transform: translate(4%, 3%) scale(1.08);
+    }
+
+    100% {
+        transform: translate(-2%, 5%) scale(1.04);
+    }
+}
+
+@keyframes starDrift {
+
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(-80px, 60px);
+    }
+}
+
+@keyframes planetFloatOne {
+
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+
+    25% {
+        transform: translate(80px, -45px) rotate(80deg) scale(1.08);
+    }
+
+    50% {
+        transform: translate(145px, 55px) rotate(180deg) scale(.92);
+    }
+
+    75% {
+        transform: translate(45px, 105px) rotate(280deg) scale(1.05);
+    }
+}
+
+@keyframes planetFloatTwo {
+
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(-75px, 65px) rotate(90deg);
+    }
+
+    50% {
+        transform: translate(-145px, -20px) rotate(180deg);
+    }
+
+    75% {
+        transform: translate(-50px, -100px) rotate(270deg);
+    }
+}
+
+@keyframes planetFloatThree {
+
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+
+    20% {
+        transform: translate(-80px, -80px) rotate(70deg) scale(1.08);
+    }
+
+    45% {
+        transform: translate(-160px, 15px) rotate(160deg) scale(.9);
+    }
+
+    70% {
+        transform: translate(-75px, 100px) rotate(250deg) scale(1.05);
+    }
+}
+
+@keyframes planetFloatFour {
+
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    30% {
+        transform: translate(100px, -70px) rotate(120deg);
+    }
+
+    60% {
+        transform: translate(-50px, -125px) rotate(240deg);
+    }
+
+    85% {
+        transform: translate(-120px, 20px) rotate(330deg);
+    }
+}
+
+@keyframes planetFloatFive {
+
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(-90px, 75px) scale(1.2);
+    }
+
+    50% {
+        transform: translate(80px, 125px) scale(.8);
+    }
+
+    75% {
+        transform: translate(130px, -35px) scale(1.1);
+    }
+}
+
+@keyframes shootingStar {
+
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(-35deg) scale(.5);
+    }
+
+    5% {
+        opacity: 1;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    35% {
+        opacity: 0;
+        transform: translate(-500px, 300px) rotate(-35deg) scale(1.2);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-500px, 300px) rotate(-35deg) scale(1.2);
+    }
+}
+
+@keyframes crazySpaceFlash {
+
+    0% {
+        filter: brightness(1) saturate(1);
+    }
+
+    15% {
+        filter: brightness(2.5) saturate(1.7);
+    }
+
+    30% {
+        filter: brightness(5) saturate(2);
+    }
+
+    45% {
+        filter: brightness(2.8) saturate(1.8);
+    }
+
+    65% {
+        filter: brightness(1.5) saturate(1.3);
+    }
+
+    100% {
+        filter: brightness(1) saturate(1);
+    }
+}
+
+@keyframes crazyNebulaFlash {
+
+    0% {
+        opacity: .35;
+        transform: scale(1);
+        filter: blur(45px);
+    }
+
+    25% {
+        opacity: 1;
+        transform: scale(1.25);
+        filter: blur(35px) brightness(2);
+    }
+
+    45% {
+        opacity: 1;
+        transform: scale(1.45);
+        filter: blur(25px) brightness(3);
+    }
+
+    100% {
+        opacity: .35;
+        transform: scale(1);
+        filter: blur(45px);
+    }
+}
+
+/* ==========================
+   ORIGINAL SITE
+========================== */
 
 header {
     position: sticky;
@@ -32,16 +786,19 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 18px 25px;
-    background: rgba(10, 5, 25, .65);
+    background: rgba(7, 5, 25, .68);
     backdrop-filter: blur(15px);
-    border-bottom: 1px solid #a855f733;
+    border-bottom: 1px solid #3b82eb55;
+    box-shadow: 0 5px 25px #2563eb18;
 }
 
 .logo {
     font-size: 26px;
     font-weight: bold;
     color: #c084fc;
-    text-shadow: 0 0 20px #a855f777;
+    text-shadow:
+        0 0 15px #a855f777,
+        0 0 30px #2563eb55;
 }
 
 nav {
@@ -54,22 +811,38 @@ button {
 }
 
 .nav-btn {
-    border: 1px solid #a855f733;
-    background: #7c3aed22;
+    border: 1px solid #3b82f655;
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed22,
+            #2563eb22
+        );
     color: white;
     padding: 10px 14px;
     border-radius: 9px;
     cursor: pointer;
+    transition: .2s ease;
 }
 
 .nav-btn:hover {
-    background: #7c3aed55;
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed55,
+            #2563eb55
+        );
+    box-shadow:
+        0 0 15px #7c3aed44,
+        0 0 25px #2563eb33;
 }
 
 .page {
     display: none;
     min-height: calc(100vh - 70px);
     padding: 40px 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .page.active {
@@ -82,9 +855,21 @@ button {
     text-align: center;
     padding: 60px 25px;
     border-radius: 25px;
-    background: linear-gradient(145deg, #7c3aed20, #2563eb12);
-    border: 1px solid #a855f733;
+
+    background:
+        linear-gradient(
+            145deg,
+            #7c3aed25,
+            #2563eb20,
+            #ec489910
+        );
+
+    border: 1px solid #3b82f655;
     backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 0 35px #7c3aed18,
+        0 0 55px #2563eb12;
 }
 
 .hero h1 {
@@ -94,7 +879,9 @@ button {
 
 .hero h1 span {
     color: #c084fc;
-    text-shadow: 0 0 25px #a855f777;
+    text-shadow:
+        0 0 20px #a855f777,
+        0 0 35px #3b82f655;
 }
 
 .hero p {
@@ -107,18 +894,43 @@ button {
 .action {
     display: inline-block;
     border: 0;
-    background: linear-gradient(135deg, #9333ea, #6d28d9);
+
+    background:
+        linear-gradient(
+            135deg,
+            #9333ea,
+            #6366f1,
+            #2563eb
+        );
+
     color: white;
     padding: 13px 22px;
     border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
     text-decoration: none;
+
+    box-shadow:
+        0 0 15px #7c3aed33,
+        0 0 25px #2563eb22;
+
+    transition: .2s ease;
 }
 
 .action:hover {
-    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    background:
+        linear-gradient(
+            135deg,
+            #a855f7,
+            #6366f1,
+            #3b82f6
+        );
+
     transform: translateY(-2px);
+
+    box-shadow:
+        0 0 20px #a855f755,
+        0 0 35px #3b82f644;
 }
 
 .title {
@@ -130,6 +942,7 @@ button {
     font-size: 40px;
     color: #e9d5ff;
     margin-bottom: 10px;
+    text-shadow: 0 0 20px #6366f144;
 }
 
 .title p {
@@ -148,9 +961,32 @@ button {
     padding: 30px;
     text-align: center;
     border-radius: 20px;
-    background: linear-gradient(145deg, #7c3aed22, #2563eb12);
-    border: 1px solid #a855f744;
+
+    background:
+        linear-gradient(
+            145deg,
+            #7c3aed22,
+            #2563eb18,
+            #ec48990b
+        );
+
+    border: 1px solid #3b82f655;
     backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 0 25px #2563eb0d;
+
+    transition: .25s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #60a5fa77;
+
+    box-shadow:
+        0 0 25px #7c3aed22,
+        0 0 40px #2563eb22;
 }
 
 .game-card h3 {
@@ -170,8 +1006,15 @@ button {
     margin: auto;
     padding: 35px;
     border-radius: 20px;
-    background: #7c3aed18;
-    border: 1px solid #a855f744;
+
+    background:
+        linear-gradient(
+            145deg,
+            #7c3aed18,
+            #2563eb15
+        );
+
+    border: 1px solid #3b82f655;
     backdrop-filter: blur(15px);
 }
 
@@ -202,6 +1045,7 @@ button {
     font-size: 36px;
     color: #c084fc;
     margin-bottom: 10px;
+    text-shadow: 0 0 20px #a855f744;
 }
 
 .game-container > p {
@@ -212,8 +1056,15 @@ button {
     margin-top: 25px;
     padding: 25px;
     border-radius: 20px;
-    background: #7c3aed18;
-    border: 1px solid #a855f744;
+
+    background:
+        linear-gradient(
+            145deg,
+            #7c3aed18,
+            #2563eb15
+        );
+
+    border: 1px solid #3b82f655;
     backdrop-filter: blur(15px);
 }
 
@@ -234,23 +1085,27 @@ button {
 .tic-cell {
     width: 90px;
     height: 90px;
-    border: 2px solid #8b5cf677;
+    border: 2px solid #6366f177;
     border-radius: 10px;
     background: #4c1d9522;
     color: #e9d5ff;
     font-size: 38px;
     font-weight: bold;
     cursor: pointer;
+    transition: .2s ease;
 }
 
 .tic-cell:hover {
-    background: #7c3aed44;
+    background: #2563eb33;
+    border-color: #60a5fa99;
+    box-shadow: 0 0 15px #2563eb44;
 }
 
 #birdScore {
-    color: #c084fc;
+    color: #93c5fd;
     font-size: 23px;
     margin-bottom: 12px;
+    text-shadow: 0 0 12px #3b82f655;
 }
 
 #birdArea {
@@ -261,16 +1116,22 @@ button {
     margin: auto;
     overflow: hidden;
     border-radius: 18px;
-    border: 2px solid #8b5cf677;
+    border: 2px solid #6366f177;
+
     background:
         radial-gradient(circle at 15% 15%, white 1px, transparent 2px),
         radial-gradient(circle at 70% 20%, #93c5fd 1px, transparent 2px),
         radial-gradient(circle at 40% 40%, #d8b4fe 1px, transparent 2px),
         radial-gradient(circle at 85% 55%, white 1px, transparent 2px),
         radial-gradient(circle at 25% 75%, #60a5fa 1px, transparent 2px),
-        linear-gradient(#02020a, #0b1030, #17052d);
+        linear-gradient(#02020a, #07183b, #17052d);
+
     cursor: pointer;
     touch-action: manipulation;
+
+    box-shadow:
+        inset 0 0 35px #2563eb18,
+        0 0 20px #2563eb18;
 }
 
 #bird {
@@ -280,8 +1141,20 @@ button {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 25%, #f3e8ff, #c084fc 40%, #7c3aed);
-    box-shadow: 0 0 18px #c084fc99;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            #f3e8ff,
+            #c084fc 40%,
+            #6366f1 70%,
+            #2563eb
+        );
+
+    box-shadow:
+        0 0 18px #c084fc99,
+        0 0 30px #3b82f655;
+
     z-index: 5;
 }
 
@@ -298,9 +1171,22 @@ button {
 .pipe {
     position: absolute;
     width: 60px;
-    background: linear-gradient(90deg, #4c1d95, #7e22ce, #4c1d95);
-    border: 2px solid #a855f7;
-    box-shadow: 0 0 10px #7c3aed55;
+
+    background:
+        linear-gradient(
+            90deg,
+            #1e1b4b,
+            #4c1d95,
+            #2563eb,
+            #4c1d95,
+            #1e1b4b
+        );
+
+    border: 2px solid #6366f1;
+
+    box-shadow:
+        0 0 10px #7c3aed55,
+        0 0 20px #2563eb33;
 }
 
 .pipe.top {
@@ -309,11 +1195,6 @@ button {
 
 .pipe.bottom {
     bottom: 0;
-}
-
-#birdMessage {
-    color: #cbd5e1;
-    margin-top: 15px;
 }
 
 /* ==========================
@@ -335,6 +1216,9 @@ button {
     font-size: 36px;
     color: #c084fc;
     margin-bottom: 8px;
+    text-shadow:
+        0 0 20px #a855f744,
+        0 0 30px #2563eb33;
 }
 
 .helltaker-container > p {
@@ -386,7 +1270,7 @@ button {
 #unity-progress-bar-full {
     width: 0%;
     height: 100%;
-    background: #9333ea;
+    background: linear-gradient(90deg, #9333ea, #6366f1, #2563eb);
 }
 
 #unity-warning {
@@ -463,11 +1347,53 @@ button {
     #unity-footer {
         height: 32px;
     }
+
+    .planet-one {
+        width: 75px;
+        height: 75px;
+    }
+
+    .planet-three {
+        width: 90px;
+        height: 90px;
+    }
+
+    .planet-two {
+        width: 50px;
+        height: 50px;
+    }
+
+    .planet-four,
+    .planet-five {
+        width: 35px;
+        height: 35px;
+    }
 }
 </style>
 </head>
 
 <body>
+
+<!-- ==========================
+     SPACE BACKGROUND
+========================== -->
+
+<div id="spaceBackground">
+
+    <div class="space-planet planet-one"></div>
+    <div class="space-planet planet-two"></div>
+    <div class="space-planet planet-three"></div>
+    <div class="space-planet planet-four"></div>
+    <div class="space-planet planet-five"></div>
+
+    <div class="shooting-star star-one"></div>
+    <div class="shooting-star star-two"></div>
+    <div class="shooting-star star-three"></div>
+    <div class="shooting-star star-four"></div>
+    <div class="shooting-star star-five"></div>
+    <div class="shooting-star star-six"></div>
+
+</div>
 
 <header>
 
@@ -492,9 +1418,6 @@ button {
     </nav>
 
 </header>
-
-
-<!-- HOME -->
 
 <section id="home" class="page active">
 
@@ -524,9 +1447,6 @@ button {
 
 </section>
 
-
-<!-- GAMES -->
-
 <section id="games" class="page">
 
     <div class="title">
@@ -538,7 +1458,6 @@ button {
         </p>
 
     </div>
-
 
     <div class="games">
 
@@ -560,7 +1479,6 @@ button {
 
         </div>
 
-
         <div class="game-card">
 
             <h3>🐦 Midnight Bird</h3>
@@ -578,7 +1496,6 @@ button {
             </button>
 
         </div>
-
 
         <div class="game-card">
 
@@ -601,9 +1518,6 @@ button {
     </div>
 
 </section>
-
-
-<!-- ABOUT -->
 
 <section id="about" class="page">
 
@@ -645,9 +1559,6 @@ button {
     </div>
 
 </section>
-
-
-<!-- TIC TAC TOE -->
 
 <section id="ticPage" class="page">
 
@@ -701,9 +1612,6 @@ button {
 
 </section>
 
-
-<!-- MIDNIGHT BIRD -->
-
 <section id="birdPage" class="page">
 
     <div class="game-container">
@@ -751,9 +1659,6 @@ button {
     </div>
 
 </section>
-
-
-<!-- HELLTAKER -->
 
 <section id="helltakerPage" class="page">
 
@@ -813,7 +1718,6 @@ button {
 
 </section>
 
-
 <script>
 
 /* ==========================
@@ -830,13 +1734,46 @@ function showPage(pageName) {
 
         });
 
-
     document
         .getElementById(pageName)
         .classList.add("active");
 
-
     window.scrollTo(0, 0);
+}
+
+
+/* ==========================
+   GAME SELECTION FLASH
+========================== */
+
+let gameTransitioning = false;
+
+function gameSelectFlash(callback) {
+
+    if (gameTransitioning) {
+        return;
+    }
+
+    gameTransitioning = true;
+
+    const background =
+        document.getElementById("spaceBackground");
+
+    background.classList.remove("game-selected");
+
+    void background.offsetWidth;
+
+    background.classList.add("game-selected");
+
+    setTimeout(function() {
+
+        background.classList.remove("game-selected");
+
+        gameTransitioning = false;
+
+        callback();
+
+    }, 800);
 }
 
 
@@ -854,14 +1791,16 @@ let ticTurn = "X";
 
 let ticOver = false;
 
-
 function openTicTacToe() {
 
-    resetTic();
+    gameSelectFlash(function() {
 
-    showPage("ticPage");
+        resetTic();
+
+        showPage("ticPage");
+
+    });
 }
-
 
 function ticMove(number) {
 
@@ -873,14 +1812,11 @@ function ticMove(number) {
         return;
     }
 
-
     ticBoard[number] = ticTurn;
-
 
     document
         .querySelectorAll(".tic-cell")[number]
         .textContent = ticTurn;
-
 
     if (ticWinner()) {
 
@@ -894,7 +1830,6 @@ function ticMove(number) {
         return;
     }
 
-
     if (!ticBoard.includes("")) {
 
         document
@@ -907,19 +1842,16 @@ function ticMove(number) {
         return;
     }
 
-
     ticTurn =
         ticTurn === "X"
         ? "O"
         : "X";
-
 
     document
         .getElementById("ticStatus")
         .textContent =
         "Your turn — " + ticTurn;
 }
-
 
 function ticWinner() {
 
@@ -938,7 +1870,6 @@ function ticWinner() {
 
     ];
 
-
     for (
         let i = 0;
         i < wins.length;
@@ -948,7 +1879,6 @@ function ticWinner() {
         const a = wins[i][0];
         const b = wins[i][1];
         const c = wins[i][2];
-
 
         if (
             ticBoard[a] !== "" &&
@@ -962,10 +1892,8 @@ function ticWinner() {
 
     }
 
-
     return false;
 }
-
 
 function resetTic() {
 
@@ -979,7 +1907,6 @@ function resetTic() {
 
     ticOver = false;
 
-
     document
         .querySelectorAll(".tic-cell")
         .forEach(function(cell) {
@@ -987,7 +1914,6 @@ function resetTic() {
             cell.textContent = "";
 
         });
-
 
     document
         .getElementById("ticStatus")
@@ -1001,41 +1927,33 @@ function resetTic() {
 ========================== */
 
 let birdY = 200;
-
 let birdVelocity = 0;
-
 let birdScore = 0;
-
 let birdRunning = false;
-
 let birdAnimation;
-
 let birdPipes = [];
 
-
 const gravity = 0.20;
-
 const jumpPower = -6;
-
 const pipeSpeed = 2.4;
-
 const pipeGap = 170;
-
 
 function openBird() {
 
-    showPage("birdPage");
+    gameSelectFlash(function() {
 
-    startBird();
+        showPage("birdPage");
+
+        startBird();
+
+    });
 }
-
 
 function startBird() {
 
     cancelAnimationFrame(
         birdAnimation
     );
-
 
     birdPipes.forEach(function(pipe) {
 
@@ -1044,42 +1962,32 @@ function startBird() {
 
     });
 
-
     birdPipes = [];
 
-
     birdY = 200;
-
     birdVelocity = 0;
-
     birdScore = 0;
-
     birdRunning = true;
-
 
     document
         .getElementById("bird")
         .style.top =
         birdY + "px";
 
-
     document
         .getElementById("birdScore")
         .textContent =
         "Score: 0";
-
 
     document
         .getElementById("birdMessage")
         .textContent =
         "Tap to fly!";
 
-
     createPipe(500);
 
     birdLoop();
 }
-
 
 function birdJump() {
 
@@ -1091,7 +1999,6 @@ function birdJump() {
         jumpPower;
 }
 
-
 function createPipe(x) {
 
     const topHeight =
@@ -1099,12 +2006,10 @@ function createPipe(x) {
             Math.random() * 180
         ) + 55;
 
-
     const bottomHeight =
         450 -
         topHeight -
         pipeGap;
-
 
     const top =
         document.createElement("div");
@@ -1112,11 +2017,9 @@ function createPipe(x) {
     const bottom =
         document.createElement("div");
 
-
     top.className = "pipe top";
 
     bottom.className = "pipe bottom";
-
 
     top.style.height =
         topHeight + "px";
@@ -1124,39 +2027,30 @@ function createPipe(x) {
     bottom.style.height =
         bottomHeight + "px";
 
-
     top.style.left =
         x + "px";
 
     bottom.style.left =
         x + "px";
 
-
     document
         .getElementById("birdArea")
         .appendChild(top);
-
 
     document
         .getElementById("birdArea")
         .appendChild(bottom);
 
-
     birdPipes.push({
 
         x: x,
-
         topHeight: topHeight,
-
         top: top,
-
         bottom: bottom,
-
         passed: false
 
     });
 }
-
 
 function birdLoop() {
 
@@ -1164,29 +2058,24 @@ function birdLoop() {
         return;
     }
 
-
     birdVelocity += gravity;
 
     birdY += birdVelocity;
-
 
     document
         .getElementById("bird")
         .style.top =
         birdY + "px";
 
-
     birdPipes.forEach(function(pipe) {
 
         pipe.x -= pipeSpeed;
-
 
         pipe.top.style.left =
             pipe.x + "px";
 
         pipe.bottom.style.left =
             pipe.x + "px";
-
 
         if (
             !pipe.passed &&
@@ -1197,13 +2086,11 @@ function birdLoop() {
 
             birdScore++;
 
-
             document
                 .getElementById("birdScore")
                 .textContent =
                 "Score: " + birdScore;
         }
-
 
         if (
             pipe.x < 115 &&
@@ -1216,14 +2103,12 @@ function birdLoop() {
             const birdBottom =
                 birdY + 35;
 
-
             const gapTop =
                 pipe.topHeight;
 
             const gapBottom =
                 pipe.topHeight +
                 pipeGap;
-
 
             if (
                 birdTop < gapTop ||
@@ -1238,7 +2123,6 @@ function birdLoop() {
 
     });
 
-
     if (
         birdY < 0 ||
         birdY + 35 > 450
@@ -1249,7 +2133,6 @@ function birdLoop() {
         return;
     }
 
-
     if (
         birdPipes.length === 0 ||
         birdPipes[
@@ -1259,7 +2142,6 @@ function birdLoop() {
 
         createPipe(500);
     }
-
 
     birdPipes =
         birdPipes.filter(
@@ -1277,23 +2159,19 @@ function birdLoop() {
             }
         );
 
-
     birdAnimation =
         requestAnimationFrame(
             birdLoop
         );
 }
 
-
 function endBird() {
 
     birdRunning = false;
 
-
     cancelAnimationFrame(
         birdAnimation
     );
-
 
     document
         .getElementById("birdMessage")
@@ -1301,7 +2179,6 @@ function endBird() {
         "Game Over! Score: " +
         birdScore;
 }
-
 
 document
     .getElementById("birdArea")
@@ -1313,7 +2190,6 @@ document
 
         }
     );
-
 
 document
     .getElementById("birdArea")
@@ -1337,21 +2213,22 @@ document
 let helltakerLoaded = false;
 let helltakerInstance = null;
 
-
 function openHelltaker() {
 
-    showPage("helltakerPage");
+    gameSelectFlash(function() {
 
-    if (!helltakerLoaded) {
-        initHelltaker();
-    }
+        showPage("helltakerPage");
+
+        if (!helltakerLoaded) {
+            initHelltaker();
+        }
+
+    });
 }
-
 
 function initHelltaker() {
 
     helltakerLoaded = true;
-
 
     var container =
         document.querySelector("#unity-container");
@@ -1371,7 +2248,6 @@ function initHelltaker() {
     var warningBanner =
         document.querySelector("#unity-warning");
 
-
     function unityShowBanner(msg, type) {
 
         function updateBannerVisibility() {
@@ -1383,14 +2259,12 @@ function initHelltaker() {
 
         }
 
-
         var div =
             document.createElement("div");
 
         div.innerHTML = msg;
 
         warningBanner.appendChild(div);
-
 
         if (type == "error") {
 
@@ -1416,15 +2290,12 @@ function initHelltaker() {
 
         }
 
-
         updateBannerVisibility();
 
     }
 
-
     const baseUrl =
         "https://cdn.jsdelivr.net/gh/larpinguser/Helltaker-Web@c29f7ca6696f71505efbaabf15f5e4d77bf3a49c/helltakerweb/Build/";
-
 
     async function fetchAndMerge(urls) {
 
@@ -1433,19 +2304,16 @@ function initHelltaker() {
                 urls.map(url => fetch(url))
             );
 
-
         const blobs =
             await Promise.all(
                 responses.map(res => res.blob())
             );
-
 
         return URL.createObjectURL(
             new Blob(blobs)
         );
 
     }
-
 
     async function init() {
 
@@ -1463,7 +2331,6 @@ function initHelltaker() {
 
             ]);
 
-
         const wasmUrl =
             await fetchAndMerge([
 
@@ -1477,7 +2344,6 @@ function initHelltaker() {
                 "helltakerweb.wasm.part3"
 
             ]);
-
 
         var config = {
 
@@ -1505,7 +2371,6 @@ function initHelltaker() {
                 unityShowBanner
 
         };
-
 
         if (
             /iPhone|iPad|iPod|Android/i
@@ -1541,19 +2406,15 @@ function initHelltaker() {
 
         }
 
-
         loadingBar.style.display =
             "block";
-
 
         var script =
             document.createElement("script");
 
-
         script.src =
             baseUrl +
             "helltakerweb.loader.js";
-
 
         script.onload = () => {
 
@@ -1575,7 +2436,6 @@ function initHelltaker() {
                 loadingBar.style.display =
                     "none";
 
-
                 fullscreenButton.onclick =
                     () => {
 
@@ -1591,13 +2451,11 @@ function initHelltaker() {
 
         };
 
-
         document
             .body
             .appendChild(script);
 
     }
-
 
     init();
 
@@ -1607,4 +2465,3 @@ function initHelltaker() {
 
 </body>
 </html>
-```
